@@ -21,8 +21,16 @@
         <nav>
             <a href="{{ path('home_index') }}">Accueil</a> -
             <a href="{{ path('video_index') }}">Exercice vidéo</a> -
-            <a href="{{ path('twig_index') }}">Twig</a>
+            <a href="{{ path('twig_index') }}">Twig</a> -
+            <a href="{{ path('movie_presentation') }}">Présentation Star Wars</a>
         </nav>
+        {% for type, messages in app.flashes %}
+            <div class="">
+                {% for message in messages %}
+                    <strong>{{ type }}: </strong> {{ message }}
+                {% endfor %}
+            </div>
+        {% endfor %}
         <main>
             {% block body %}{% endblock %}
         </main>

@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Présentation movie{% endblock %}
+
+{% block body %}
+
+    <article>
+        <h2>{{ movie.title }}</h2>
+        <p>
+            <small>Sorti en salle le {{ movie.releaseDate | format_date }} / durée: {{ movie.duration | format_time }}</small>
+        </p>
+
+        <div>
+            <img src="{{ asset('images/' ~ movie.poster) }}" alt="affiche de {{ movie.title }}" />
+        </div>
+        <div>
+            <p>{{ movie.synopsis }}</p>
+        </div>
+    </article>
+
+    <footer>
+        <a href="{{ path('movie_presentation', {"save": 1}) }}">Sauvegarder</a>
+    </footer>
+
+{% endblock %}
