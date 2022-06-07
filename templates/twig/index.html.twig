@@ -1,20 +1,96 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello TwigController!{% endblock %}
+{% block title %} {{ parent() }} to Twig {% endblock %}
+
+{% block stylesheets %}
+    <style>
+        h2 {
+            color: #B0413E
+        }
+    </style>
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    {% macro mark( name ) %}
+        <mark>{{ name | upper }}</mark>
+    {% endmacro %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/Users/Dawan/Desktop/symfony/formationLyon/src/Controller/TwigController.php'|file_link(0) }}">src/Controller/TwigController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/Users/Dawan/Desktop/symfony/formationLyon/templates/twig/index.html.twig'|file_link(0) }}">templates/twig/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <h2>{{ block('title') }}</h2>
+
+    <article>
+        <h3>Boucle: liste des utilisateurs</h3>
+
+        <h4>Utilisateurs</h4>
+        <p>Il y a {{ users | length }} utilisateurs</p>
+        <ul>
+            {% for index, name in users %}
+                <li>
+                    <small>{{ index }} - {{ loop.index }} - {{ loop.index0 }}</small> -> {{ name }}
+                </li>
+            {% endfor %}
+        </ul>
+
+        <h4>Administrateurs</h4>
+        <ul>
+            {% for name in admins %}
+                <li>
+                    {{ name }}
+                </li>
+            {% else %}
+                <li>Aucun administrateur enregistré</li>
+            {% endfor %}
+        </ul>
+    </article>
+
+    <article>
+        <h3>Conditions</h3>
+
+        <p>
+            {{ product.name }} @ {{ product.price | format_currency('EUR') }}
+            {% if product.price > 10 %}
+                <small>5% de réduction</small>
+            {% endif %}
+        </p>
+
+        {% if product.name is same as('Pomme') %}
+            <p>Nous avons des pommes en stock</p>
+        {% endif %}
+
+        {% if not shopIsOpen %}
+            <p>Attention le magasin de Lille est fermé aujourd'hui. Merci de votre compréhension</p>
+        {% endif %}
+
+
+
+    </article>
+
+    <article>
+        <h3>Formattage: Filtre</h3>
+
+        <p>XSS</p>
+
+        {{ html }}
+
+        {{ html | raw }}
+
+        <p>Nous sommes le {{ date() | date('d-m-Y') }}</p>
+
+        <p>{{ date() | format_datetime }}</p>
+
+        {% set firstname = person.name | default('John ' ~ 'Doe') %}
+
+        <p>{{ _self.mark( 'Bonjour ' ~ firstname ) }}</p>
+    </article>
+
+    <article>
+        <h3>Inclusion et Sous requête</h3>
+
+        {# provoque l'appel d'une sous requête #}
+        {{ render(controller('App\\Controller\\TwigController::image')) }}
+
+        {{ render(path('video_index')) }}
+
+    </article>
+
 {% endblock %}
