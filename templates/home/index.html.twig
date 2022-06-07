@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+
+<div class="example-wrapper">
+    <h1>Hello {{ name }}! ✅</h1>
+
+    <p> {# querystring ?name=john #}
+        <a href="{{ url('home_index') }}">Accueil</a> -
+        <a href="{{ path('home_index', {'name': 'john'}) }}">Hello John Doe</a> -
+        <a href="{{ path('home_parameter', {'name': 'jane'}) }}">Page Paramètre</a> -
+        <a href="{{ path('home_flash') }}">Message flash</a> -
+
+        <a href="{{ path('home_response') }}">Redirect Response</a> -
+        <a href="{{ path('home_response_simple') }}">Object Response</a> -
+        <a href="{{ path('home_response_json_helper') }}">Liste des utilisateurs (helper)</a> -
+        <a href="{{ path('home_response_json') }}">Liste des utilisateurs</a> -
+        <a href="{{ path('home_response_download') }}">Télécharger le fichier</a> -
+    </p>
+
+</div>
+{% endblock %}

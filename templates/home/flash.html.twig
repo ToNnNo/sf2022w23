@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Message flash{% endblock %}
+
+{% block body %}
+
+    <h1>Message Flash</h1>
+
+    <a href="{{ path('home_flash', {'flash': 1}) }}">Ajouter un message</a>
+
+    {# s'affiche dans le profiler #}
+    {# {% dump(app) %} #}
+
+    {# s'affiche dans la vue #}
+    {# {{ dump(app) }} #}
+
+    <ul>
+    {% for message in app.flashes('success') %}
+        <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+
+
+    {% for type, messages in app.flashes %}
+        <ul>
+        {% for message in messages %}
+            <li><strong>{{ type }}</strong>: {{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endfor %}
+
+
+{% endblock %}

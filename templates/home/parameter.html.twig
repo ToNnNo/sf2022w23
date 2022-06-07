@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Parameters {% endblock %}
+
+{% block body %}
+
+    <h1>Bonjour {{ name }}</h1>
+
+    <nav>
+        <a href="{{ path('home_parameter') }}">Paramètre par défaut</a> -
+        <a href="{{ path('home_parameter', {'name': 'jane'}) }}">Jane</a> -
+        <a href="{{ path('home_parameter', {'name': 'erreur'}) }}">404</a> -
+        <a href="{{ path('home_parameter', {'name': 'redirect'}) }}">
+            Redirection vers la page d'accueil</a> -
+        <a href="{{ path('home_parameter', {'name': 'forward'}) }}">Voir l'accueil</a> -
+    </nav>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aspernatur at ducimus eos error eveniet
+        excepturi itaque libero molestiae mollitia nisi quis reiciendis repellat rerum, sapiente tempore, tenetur ut
+        vel!</p>
+
+{% endblock %}
