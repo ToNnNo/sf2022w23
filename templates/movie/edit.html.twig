@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editer un film{% endblock %}
+
+{% block body %}
+
+    <h2>Editer un film</h2>
+    <div class="mb-3">
+        <a href="{{ path('movie_index') }}" class="btn btn-outline-dark"> &laquo; Retour</a>
+    </div>
+
+    {# {{ form(form) }} #}
+
+    {{ form_start(form) }}
+    <i>Avant</i>
+    {{ form_row(form.title) }}
+    <i>Après</i>
+
+    <div class="mb-3">
+        <i class="bi bi-clock"></i> {{ form_label(form.duration, 'Durée', {'label_attr': { 'class': 'exemple'}}) }}
+        {{ form_errors(form.duration) }}
+        {{ form_widget(form.duration) }}
+        {{ form_help(form.duration) }}
+    </div>
+
+    {{ form_rest(form) }}
+    <button type="submit" class="btn btn-outline-primary">Enregistrer</button>
+    {{ form_end(form) }}
+{% endblock %}

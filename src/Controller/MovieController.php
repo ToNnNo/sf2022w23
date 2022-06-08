@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Movie;
+use App\Form\MovieType;
+use App\Repository\MovieRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,10 +13,19 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MovieController extends AbstractController
 {
+    private $movieRepository;
+    private $entityManager;
+
+    public function __construct(ManagerRegistry $doctrine, MovieRepository $movieRepository)
+    {
+        $this->entityManager = $doctrine->getManager();
+        $this->movieRepository = $movieRepository;
+    }
+
     /**
      * @Route("/movie/presentation", name="movie_presentation")
      */
-    public function presentation(Request $request, ManagerRegistry $doctrine): Response
+    public function presentation(Request $request): Response
     {
         $movie = new Movie();
         $movie
@@ -26,9 +37,8 @@ class MovieController extends AbstractController
 
         if( $request->query->has('save') ) {
 
-            $em = $doctrine->getManager();
-            $em->persist($movie);
-            $em->flush();
+            $this->entityManager->persist($movie);
+            $this->entityManager->flush();
 
             $this->addFlash('success', 'Le film a bien été enregistré');
 
@@ -45,8 +55,59 @@ class MovieController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('movie/index.html.twig', [
+        $movies = $this->movieRepository->findAll();
 
+        return $this->render('movie/index.html.twig', [
+            'movies' => $movies
+        ]);
+    }
+
+    /**
+     * @Route("/movie/add", name="movie_add")
+     */
+    public function add(Request $request): Response
+    {
+        $movie = new Movie();
+        $form = $this->createForm(MovieType::class, $movie);
+
+        $form->handleRequest($request);
+        if( $form->isSubmitted() && $form->isValid() ) {
+            $this->movieRepository->add($movie, true);
+
+            $this->addFlash('success', 'Le film a bien été ajouté');
+            return $this->redirectToRoute('movie_add'); // POST-redirect-GET
+        }
+
+        /*return $this->render('movie/edit.html.twig', [
+            'form' => $form->createView()
+        ]);*/
+
+        return $this->renderForm('movie/edit.html.twig', [
+            'form' => $form
+        ]);
+    }
+
+    /**
+     * @Route("/movie/edit/{id}", name="movie_edit")
+     */
+    public function edit(Request $request, Movie $movie): Response
+    {
+        // $movie = $this->movieRepository->find($id);
+        // dump($movie);
+
+        $form = $this->createForm(MovieType::class, $movie);
+        $form->handleRequest($request);
+
+        if( $form->isSubmitted() && $form->isValid() ) {
+            $this->entityManager->flush();
+
+            $this->addFlash('success', 'Le film a bien été modifié');
+
+            return $this->redirectToRoute('movie_edit', ['id' => $movie->getId()]);
+        }
+
+        return $this->renderForm('movie/edit.html.twig', [
+            'form' => $form
         ]);
     }
 }

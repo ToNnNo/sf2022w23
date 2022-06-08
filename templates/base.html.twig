@@ -1,43 +1,44 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %} :: Formation Symfony</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %} :: Formation Symfony</title>
+    <link rel="icon"
+          href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-        <header>
-            <h1>Formation Symfony 5.4</h1>
-            <hr />
-        </header>
-        <nav>
-            <a href="{{ path('home_index') }}">Accueil</a> -
-            <a href="{{ path('video_index') }}">Exercice vidéo</a> -
-            <a href="{{ path('twig_index') }}">Twig</a> -
-            <a href="{{ path('movie_presentation') }}">Présentation Star Wars</a>
-        </nav>
-        {% for type, messages in app.flashes %}
-            <div class="">
-                {% for message in messages %}
-                    <strong>{{ type }}: </strong> {{ message }}
-                {% endfor %}
-            </div>
-        {% endfor %}
-        <main>
-            {% block body %}{% endblock %}
-        </main>
-        <footer>
-            <p>
-                <small>Formation Symfony - Dawan Lyon/FOAD - Juin 2022</small>
-            </p>
-        </footer>
-    </body>
+    {{ encore_entry_link_tags('app') }}
+    {% block stylesheets %}{% endblock %}
+
+    {{ encore_entry_script_tags('app') }}
+    {% block javascripts %}{% endblock %}
+</head>
+<body>
+<div class="container-fluid">
+    <header class="mt-5 border-bottom">
+        <h1>Formation Symfony 5.4</h1>
+    </header>
+    <nav class="nav">
+        <a href="{{ path('home_index') }}" class="nav-link">Accueil</a>
+        <a href="{{ path('video_index') }}" class="nav-link">Exercice vidéo</a>
+        <a href="{{ path('twig_index') }}" class="nav-link">Twig</a>
+        <a href="{{ path('movie_presentation') }}" class="nav-link">Présentation Star Wars</a>
+        <a href="{{ path('movie_index') }}" class="nav-link">Liste des films</a>
+    </nav>
+    {% for type, messages in app.flashes %}
+        <div class="alert alert-{{ type }}">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endfor %}
+    <main>
+        {% block body %}{% endblock %}
+    </main>
+    <footer class="border-top mt-5">
+        <p class="text-center">
+            <small>Formation Symfony - Dawan Lyon/FOAD - Juin 2022</small>
+        </p>
+    </footer>
+</div>
+</body>
 </html>
