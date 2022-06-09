@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tax Calculator{% endblock %}
+
+{% block body %}
+
+    <table class="table w-25">
+        <thead>
+        <tr>
+            <th>HT</th>
+            <th>TVA</th>
+            <th>Montant TVA</th>
+            <th>TTC</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{{ calculator.exclTax }}</td>
+            <td>{{ calculator.vateRate }} %</td>
+            <td>{{ calculator.taxValue }}</td>
+            <td>{{ calculator.inclTax }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    {{ form_start(form) }}
+    {{ form_rest(form) }}
+    <button type="submit" class="btn btn-outline-primary">Calculer</button>
+    {{ form_end(form) }}
+
+{% endblock %}

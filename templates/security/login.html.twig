@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+    <h1 class="h3 mb-3 font-weight-normal">Authentification</h1>
+
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    <form method="post">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
+
+        <div class="mb-3">
+            <label for="inputUsername">Username</label>
+            <input type="text" value="{{ last_username }}" name="_username" id="inputUsername" class="form-control"
+                   autocomplete="username" autofocus/>
+        </div>
+        <div class="mb-3">
+            <label for="inputPassword">Password</label>
+            <input type="password" name="_password" id="inputPassword" class="form-control"
+                   autocomplete="current-password" />
+        </div>
+
+        <button class="btn btn-outline-primary" type="submit">Connexion</button>
+    </form>
+{% endblock %}
