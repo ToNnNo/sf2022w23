@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Zone Privée{% endblock %}
+
+{% block body %}
+    <h2>Zone Privée</h2>
+
+    <p>Cette zone est réservée au Super Administrateur !</p>
+
+    {% if message is defined and message is not null %}
+        <p>{{ message }}</p>
+    {% endif %}
+
+    {% if is_granted('ROLE_SUPER_ADMIN') %}
+        <p>
+            <a href="#">Supprimer ce rapport</a>
+        </p>
+    {% endif %}
+
+
+{% endblock %}

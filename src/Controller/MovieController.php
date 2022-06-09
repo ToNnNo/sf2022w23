@@ -12,6 +12,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/admin/movie", name="movie_")
+ */
 class MovieController extends AbstractController
 {
     private $movieRepository;
@@ -26,7 +29,7 @@ class MovieController extends AbstractController
     }
 
     /**
-     * @Route("/movie/presentation", name="movie_presentation")
+     * @Route("/presentation", name="presentation")
      */
     public function presentation(Request $request): Response
     {
@@ -54,7 +57,7 @@ class MovieController extends AbstractController
     }
 
     /**
-     * @Route("/movie", name="movie_index")
+     * @Route("", name="index")
      */
     public function index(): Response
     {
@@ -67,7 +70,7 @@ class MovieController extends AbstractController
     }
 
     /**
-     * @Route("/movie/add", name="movie_add")
+     * @Route("/add", name="add")
      */
     public function add(Request $request): Response
     {
@@ -94,7 +97,7 @@ class MovieController extends AbstractController
     }
 
     /**
-     * @Route("/movie/edit/{id}", name="movie_edit")
+     * @Route("/edit/{id}", name="edit")
      */
     public function edit(Request $request, Movie $movie): Response
     {
