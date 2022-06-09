@@ -29,9 +29,13 @@
                 <td>{{ movie.duration | format_time('short') }}</td>
                 <td>{{ movie.releaseDate | format_date }}</td>
                 <td>
-                    <a href="{{ path('director_detail', {'id': movie.director.id }) }}">
-                        {{ movie.director.fullname }}
-                    </a>
+                   {% if movie.director is not null %}
+                        <a href="{{ path('director_detail', {'id': movie.director.id }) }}">
+                            {{ movie.director.fullname }}
+                        </a>
+                    {% else %}
+                       -
+                   {% endif %}
                 </td>
                 <td>
                     <div class="d-grid">

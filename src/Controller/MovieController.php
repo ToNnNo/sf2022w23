@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Movie;
 use App\Form\MovieType;
 use App\Repository\MovieRepository;
+use App\Service\MovieFileManager;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,11 +16,13 @@ class MovieController extends AbstractController
 {
     private $movieRepository;
     private $entityManager;
+    private $movieFileManager;
 
-    public function __construct(ManagerRegistry $doctrine, MovieRepository $movieRepository)
+    public function __construct(ManagerRegistry $doctrine, MovieRepository $movieRepository, MovieFileManager $movieFileManager)
     {
         $this->entityManager = $doctrine->getManager();
         $this->movieRepository = $movieRepository;
+        $this->movieFileManager = $movieFileManager;
     }
 
     /**
@@ -73,7 +76,8 @@ class MovieController extends AbstractController
 
         $form->handleRequest($request);
         if( $form->isSubmitted() && $form->isValid() ) {
-
+            $name = $this->movieFileManager->upload($movie->getFile());
+            $movie->setPoster($name);
             $this->movieRepository->add($movie, true);
 
             $this->addFlash('success', 'Le film a bien été ajouté');
@@ -101,6 +105,12 @@ class MovieController extends AbstractController
         $form->handleRequest($request);
 
         if( $form->isSubmitted() && $form->isValid() ) {
+            if( null != $movie->getFile() ) {
+                $name = $this->movieFileManager
+                    ->setOldFile($movie->getPoster())
+                    ->upload($movie->getFile());
+                $movie->setPoster($name);
+            }
             $this->entityManager->flush();
 
             $this->addFlash('success', 'Le film a bien été modifié');
