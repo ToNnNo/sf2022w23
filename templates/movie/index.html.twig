@@ -15,6 +15,7 @@
             <th>Titre</th>
             <th>Durée</th>
             <th>Date de sortie</th>
+            <th>Réalisateur</th>
             <th></th>
         </tr>
         </thead>
@@ -27,6 +28,11 @@
                 <td>{{ movie.title }}</td>
                 <td>{{ movie.duration | format_time('short') }}</td>
                 <td>{{ movie.releaseDate | format_date }}</td>
+                <td>
+                    <a href="{{ path('director_detail', {'id': movie.director.id }) }}">
+                        {{ movie.director.fullname }}
+                    </a>
+                </td>
                 <td>
                     <div class="d-grid">
                         <a href="{{ path('movie_edit', {'id': movie.id}) }}"

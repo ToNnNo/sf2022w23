@@ -55,7 +55,8 @@ class MovieController extends AbstractController
      */
     public function index(): Response
     {
-        $movies = $this->movieRepository->findAll();
+        // $movies = $this->movieRepository->findAll();
+        $movies = $this->movieRepository->findAllWithDirector();
 
         return $this->render('movie/index.html.twig', [
             'movies' => $movies
@@ -72,6 +73,7 @@ class MovieController extends AbstractController
 
         $form->handleRequest($request);
         if( $form->isSubmitted() && $form->isValid() ) {
+
             $this->movieRepository->add($movie, true);
 
             $this->addFlash('success', 'Le film a bien été ajouté');

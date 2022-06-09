@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\MovieRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -41,9 +43,20 @@ class Movie
     private $poster;
 
     /**
+     * @var UploadedFile $file
+     * @Assert\Image(maxSize="1M")
+     */
+    private $file;
+
+    /**
      * @ORM\Column(type="date", nullable=true)
      */
     private $releaseDate;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Director::class, inversedBy="movies")
+     */
+    private $director;
 
     public function getId(): ?int
     {
@@ -98,6 +111,18 @@ class Movie
         return $this;
     }
 
+    public function getFile(): ?UploadedFile
+    {
+        return $this->file;
+    }
+
+    public function setFile(?File $file): self
+    {
+        $this->file = $file;
+
+        return $this;
+    }
+
     public function getReleaseDate(): ?\DateTimeInterface
     {
         return $this->releaseDate;
@@ -106,6 +131,18 @@ class Movie
     public function setReleaseDate(?\DateTimeInterface $releaseDate): self
     {
         $this->releaseDate = $releaseDate;
+
+        return $this;
+    }
+
+    public function getDirector(): ?Director
+    {
+        return $this->director;
+    }
+
+    public function setDirector(?Director $director): self
+    {
+        $this->director = $director;
 
         return $this;
     }

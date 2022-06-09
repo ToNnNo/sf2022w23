@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ director.fullname }}{% endblock %}
+
+{% block body %}
+    <h1>{{ director.fullname }}</h1>
+
+    {% set diff = date().diff(director.birthday) %}
+    <p><b>Age</b>: {{ diff.y }} ans</p>
+
+    <p><b>Filmographie</b></p>
+    <ul>
+    {% for movie in director.movies %}
+        <li>{{ movie.title }} <small>({{ movie.releaseDate | date('Y') }})</small></li>
+    {% endfor %}
+    </ul>
+{% endblock %}

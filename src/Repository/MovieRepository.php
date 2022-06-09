@@ -39,6 +39,23 @@ class MovieRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * Call in App\Controller\Movie::index
+     */
+    public function findAllWithDirector(): array
+    {
+        return $this->createQueryBuilder('m')
+            ->select(['m', 'd'])
+            ->leftJoin('m.director', 'd')
+            ->orderBy('m.id', 'asc')
+            ->getQuery()
+            ->getResult();
+
+        /*$con = $this->getEntityManager()->getConnection();
+        $stmt = $con->prepare("...");
+        $stmt->executeQuery([]);*/
+    }
+
 //    /**
 //     * @return Movie[] Returns an array of Movie objects
 //     */

@@ -2,7 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\Director;
 use App\Entity\Movie;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -32,9 +35,25 @@ class MovieType extends AbstractType
             ->add('synopsis', null, [
                 'attr' => ['rows' => 6]
             ])
-            // ->add('poster', FileType::class)
+            ->add('file', FileType::class, [
+                'label' => 'Affiche'
+            ])
             ->add('releaseDate', DateType::class, [
                 'widget' => 'single_text'
+            ])
+            ->add('director', EntityType::class, [
+                'label' => 'Réalisateur',
+                'placeholder' => 'Choisissez un Réalisateur',
+                'class' => Director::class,
+                'choice_label' => function(Director $director) {
+                    return $director->getFullname();
+                },
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('d')
+                        ->where('d.active = :active')
+                        ->setParameter('active', true)
+                        ->orderBy('d.lastname', 'asc');
+                }
             ])
         ;
     }
