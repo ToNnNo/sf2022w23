@@ -18,7 +18,7 @@
         <h1>Formation Symfony 5.4</h1>
     </header>
     <div class="row">
-        <nav class="nav col-10">
+        <nav class="nav col-9">
             <a href="{{ path('home_index') }}" class="nav-link">Accueil</a>
             <a href="{{ path('video_index') }}" class="nav-link">Exercice vidéo</a>
             <a href="{{ path('twig_index') }}" class="nav-link">Twig</a>
@@ -27,8 +27,9 @@
             <a href="{{ path('service_index') }}" class="nav-link">Services</a>
             <a href="{{ path('exercice_tax') }}" class="nav-link">Exercice Taxe</a>
             <a href="{{ path('post_index') }}" class="nav-link">Article</a>
+            <a href="{{ path('user_api_index') }}" class="nav-link">JSONPlaceholder Utilisateurs</a>
         </nav>
-        <nav class="nav col-2 justify-content-end">
+        <nav class="nav col-3 justify-content-end">
             {% if not app.user %}
                 <a href="{{ path('security_login') }}" class="nav-link">Connexion</a>
             {% else %}
