@@ -23,10 +23,10 @@ class MovieType extends AbstractType
             ->add('title', TextType::class, [
                 'attr' => [
                     // 'class' => 'form-control',
-                    'placeholder' => "Indiquez ici le titre du film"
+                    'placeholder' => "movie.title.placeholder" // "Indiquez ici le titre du film"
                 ],
-                'help' => 'Indiquez le nom exact du film',
-                'label' => 'Titre',
+                'help' => "movie.title.help", // 'Indiquez le nom exact du film',
+                'label' => 'movie.title.label',
                 // 'constraints' => [ new NotBlank() ]
             ])
             ->add('duration', TimeType::class, [
@@ -62,6 +62,7 @@ class MovieType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Movie::class,
+            'translation_domain' => 'forms',
             'required' => false
         ]);
     }

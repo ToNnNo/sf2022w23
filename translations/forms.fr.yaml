@@ -1,0 +1,5 @@
+movie:
+    title:
+        label: 'Titre'
+        help: 'Indiquez le nom exact du film'
+        placeholder: "Indiquez ici le titre du film"

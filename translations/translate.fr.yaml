@@ -1,0 +1,3 @@
+translate:
+    hello: 'Bonjour %name%'
+    message: '{0}Aucun nouveau message|{1}1 nouveau message|]1,Inf[ <span class="badge bg-danger">%count%</span> nouveaux messages'

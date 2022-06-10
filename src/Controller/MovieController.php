@@ -64,6 +64,8 @@ class MovieController extends AbstractController
         // $movies = $this->movieRepository->findAll();
         $movies = $this->movieRepository->findAllWithDirector();
 
+        dump($movies);
+
         return $this->render('movie/index.html.twig', [
             'movies' => $movies
         ]);
@@ -79,8 +81,10 @@ class MovieController extends AbstractController
 
         $form->handleRequest($request);
         if( $form->isSubmitted() && $form->isValid() ) {
-            $name = $this->movieFileManager->upload($movie->getFile());
-            $movie->setPoster($name);
+            if( null != $movie->getFile() ) {
+                $name = $this->movieFileManager->upload($movie->getFile());
+                $movie->setPoster($name);
+            }
             $this->movieRepository->add($movie, true);
 
             $this->addFlash('success', 'Le film a bien été ajouté');

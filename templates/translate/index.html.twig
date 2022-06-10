@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'translate.title' | trans | humanize }}{% endblock %}
+
+{% block body %}
+    <h2>{{ 'translate.title' | trans | humanize }}</h2>
+
+    <div>
+        <a href="{{ path('translate_index', {'_locale': 'fr'}) }}">Français</a> -
+        <a href="{{ path('translate_index', {'_locale': 'en'}) }}">English</a>
+    </div>
+
+    <p class="lead">{{ message }}</p>
+
+    {% set name = (app.user.userIdentifier ?? 'John Doe') | humanize %}
+    <p>{{ 'translate.hello' | trans({'%name%': name}, 'translate') }}</p>
+
+    <hr />
+
+    {% set count = 10 %}
+
+    <p>{{ 'translate.message' | trans({'%count%': count}, 'translate') | raw }}</p>
+
+{% endblock %}

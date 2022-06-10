@@ -4,6 +4,8 @@
 
 {% block body %}
 
+    {% trans_default_domain 'form' %} {# fonctionne pas pour les forms ... #}
+
     <h2>Editer un film</h2>
     <div class="mb-3">
         <a href="{{ path('movie_index') }}" class="btn btn-outline-dark"> &laquo; Retour</a>

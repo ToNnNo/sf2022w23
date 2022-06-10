@@ -29,6 +29,7 @@
             <a href="{{ path('exercice_tax') }}" class="nav-link">Exercice Taxe</a>
             <a href="{{ path('post_index') }}" class="nav-link">Article</a>
             <a href="{{ path('user_api_index') }}" class="nav-link">JSONPlaceholder Utilisateurs</a>
+            <a href="{{ path('translate_index') }}" class="nav-link">{{ 'translate.title' | trans | humanize }}</a>
         </nav>
         <nav class="nav col-3 justify-content-end">
             {% if not app.user %}

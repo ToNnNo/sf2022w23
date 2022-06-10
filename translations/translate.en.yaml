@@ -1,0 +1,3 @@
+translate:
+    hello: 'Hello %name%'
+    message: '{0}no message|{1}1 new message|]1,Inf[ %count% new messages'
