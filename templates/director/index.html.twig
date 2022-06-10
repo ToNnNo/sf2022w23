@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Réalisateurs{% endblock %}
+
+{% block body %}
+
+    <h2>Liste des Réalisateurs</h2>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Date naissance</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for director in directors %}
+            <tr>
+                <td>{{ director.fullname }}</td>
+                <td>{{ director.birthday | format_date }}</td>
+                <td>
+                    <div class="d-grid">
+                        <a href="{{ path('director_remove', {'id': director.id, 'token': csrf_token('remove_director_' ~ director.fullname)}) }}"
+                           class="btn btn-block btn-sm btn-outline-danger">Supprimer</a>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

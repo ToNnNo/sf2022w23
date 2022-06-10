@@ -55,6 +55,7 @@ class Movie
 
     /**
      * @ORM\ManyToOne(targetEntity=Director::class, inversedBy="movies")
+     * @ORM\JoinColumn(name="director_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $director;
 
