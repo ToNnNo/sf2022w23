@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editer un article{% endblock %}
+
+{% block body %}
+
+    <h2>Editer un article</h2>
+    <div class="mb-3">
+        <a href="{{ path('post_index') }}" class="btn btn-outline-dark"> &laquo; Retour</a>
+    </div>
+
+    {{ form_start(form) }}
+
+        {{ form_rest(form) }}
+        <button type="submit" class="btn btn-outline-primary">Enregistrer</button>
+    {{ form_end(form) }}
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des articles{% endblock %}
+
+{% block body %}
+    <h2>Liste des articles</h2>
+
+    <a href="{{ path('post_add') }}" class="btn btn-outline-secondary">Ajouter un article</a>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Titre</th>
+            <th>Utilisateur</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for post in posts %}
+            {# {% if is_granted( constant('App\\Security\\Voter\\PostVoter::VIEW'), post ) %} #}
+                <tr>
+                    <td>{{ post.title }}</td>
+                    <td>{{ post.user.userIdentifier | humanize }}
+                    </td>
+                    <td>
+                        <div class="d-grid">
+                            {% if is_granted( constant('App\\Security\\Voter\\PostVoter::EDIT'), post ) %}
+                                <a href="{{ path('post_edit', {'id': post.id}) }}"
+                                   class="btn btn-block btn-sm btn-outline-secondary">Editer</a>
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+            {# {% endif %}#}
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
